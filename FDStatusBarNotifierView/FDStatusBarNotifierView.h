@@ -20,6 +20,9 @@ extern NSTimeInterval const kTimeOnScreenDefault;
 @property (assign, nonatomic) NSTimeInterval timeOnScreen; // seconds, default: 2s
 @property (readonly, nonatomic) BOOL isHidden;
 
+@property (assign, nonatomic) NSInteger messageFontSize;
+@property (assign, nonatomic) NSInteger statusBarAnimationMode;
+
 @property id<FDStatusBarNotifierViewDelegate> delegate;
 
 

@@ -33,9 +33,11 @@ NSTimeInterval const kTimeOnScreenDefault       = 2.0;
         self.messageLabel.textColor = [UIColor whiteColor];
         self.messageLabel.backgroundColor = [UIColor blackColor];
         self.messageLabel.textAlignment = UITextAlignmentCenter;
-        self.messageLabel.font = [UIFont boldSystemFontOfSize:12];
+        self.messageFontSize = 14;
+//        self.messageLabel.font = [UIFont boldSystemFontOfSize:self.messageFontSize];
         self.shouldHideOnTap = NO;
         self.manuallyHide = NO;
+        self.statusBarAnimationMode = UIStatusBarAnimationFade;
         [self addSubview:self.messageLabel];
         
         self.timeOnScreen = kTimeOnScreenDefault;
@@ -72,7 +74,7 @@ NSTimeInterval const kTimeOnScreenDefault       = 2.0;
         [self.delegate willPresentNotifierView:self];
     }
     
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:self.statusBarAnimationMode];
     [window insertSubview:self atIndex:0];
     
     CGFloat textWith = [self.message sizeWithFont:self.messageLabel.font
@@ -164,7 +166,7 @@ NSTimeInterval const kTimeOnScreenDefault       = 2.0;
                      animations:^{
                          self.frame = animationDestinationFrame;
                          [[UIApplication sharedApplication] setStatusBarHidden:NO
-                                                                 withAnimation:UIStatusBarAnimationSlide];
+                                                                 withAnimation:self.statusBarAnimationMode];
                      } completion:^(BOOL finished){
                          if (finished) {
                              
@@ -212,6 +214,12 @@ NSTimeInterval const kTimeOnScreenDefault       = 2.0;
 {
     _message = message;
     self.messageLabel.text = message;
+}
+
+- (void)setMessageFontSize:(NSInteger)fontSize
+{
+    _messageFontSize = fontSize;
+    self.messageLabel.font = [UIFont boldSystemFontOfSize:self.messageFontSize];
 }
 
 @end
